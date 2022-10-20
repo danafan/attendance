@@ -9,6 +9,10 @@
   import resource from './api/resource.js'
   export default {
     created(){
+      // this.$router.push('/index');
+      // return;
+
+
       //判断是否是手机端
       if(this.isMobile()){  //手机端
         // 获取钉钉code
@@ -21,8 +25,6 @@
     methods:{
       //钉钉获取code
       getDingCode(){
-        //获取用户信息
-        // this.getUserInfo('code');
         dd.ready(() => {
           dd.runtime.permission.requestAuthCode({
             corpId: "ding7828fff434921f5b", 
@@ -36,7 +38,6 @@
       //获取用户信息
       getUserInfo(code){
             let attend_id = window.location.search.split('=')[1]; 
-            // let attend_id = '2022101416207505'; 
             let arg = {
               code:code,
               attend_id:attend_id
@@ -74,6 +75,7 @@
                 this.$store.commit('setId',res.data.id);
                 //状态
                 this.$store.commit('setStatus',res.data.status);
+                this.$router.push('/index');
               }else{
                 this.$toast(res.data.msg)
               }
