@@ -2,7 +2,7 @@ import axios from 'axios'
 import router from '../router/index.js'
 import { Toast } from "vant";
 
-const baseURL = `${location.origin}/attend/`;
+const baseURL = `${location.origin}/`;
 // 创建axios实例，可以自定义配置
 const instance = axios.create({
   baseURL,

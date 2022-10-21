@@ -14,7 +14,7 @@
 			</div>
 		</div>
 		<div class="bottom_content">
-			<div class="button_item">对考勤有疑问?</div>
+			<div class="button_item" @click="openChat">对考勤有疑问?</div>
 			<div class="button_item sign" @click="show_sign = true" v-if="status == 1">
 				<img class="sign_icon" src="../static/sign_icon.png">
 				<div>签名确认</div>
@@ -50,6 +50,9 @@
 			},
 			title(){
 				return this.$store.state.title;
+			},
+			linkman_id(){
+				return this.$store.state.linkman_id;
 			}
 		},
 		created(){
@@ -81,7 +84,19 @@
       					}
       				})
       			}
-      		}
+      		},
+      		//去联系
+			openChat(){
+				dd.ready(() => {
+					dd.biz.chat.openSingleChat({
+    					corpId: 'ding7828fff434921f5b', // 企业id,必须是用户所属的企业的corpid
+    					userId:this.linkman_id, // 用户的uerid
+    					onSuccess : () => {
+    					},
+    					onFail : function() {}
+    				})
+				})
+			},
       	},
       	components:{
       		Sign

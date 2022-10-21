@@ -9,28 +9,15 @@ const store = new Vuex.Store({
     id:"",              //当前ID
     status:"",          //状态
     title:"",           //页面标题
+    linkman_id:"",      //联系人ID
     href:""
   },
   mutations: {
-    //数据列表
-    setGroundList (state, ground_list) {  
-      state.ground_list = ground_list;
-    },
-    //提示文字
-    setRemark(state, remark) {  
-      state.remark = remark;
-    },
-    //当前ID
-    setId(state, id) {  
-      state.id = id;
-    },
-    //当前状态
-    setStatus(state, status) {  
-      state.status = status;
-    },
-    //页面标题
-    setTitle(state, title) {  
-      state.title = title;
+    //设置数据
+    setData(state, data) {  
+      for(let k in data){
+        state[k] = data[k];
+      }
     },
     //当前地址
     setHref (state, href) {  
