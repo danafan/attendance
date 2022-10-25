@@ -9,7 +9,8 @@
   import resource from './api/resource.js'
   export default {
     created(){
-      // this.$router.push('/index');
+      //获取用户信息
+      // this.getUserInfo('code');
       // return;
 
 
@@ -75,6 +76,7 @@
       //获取用户信息
       getUserInfo(code){
         let attend_id = window.location.search.split('=')[1]; 
+        // let attend_id = '2022101416207505'; 
         let arg = {
           code:code,
           attend_id:attend_id
@@ -113,7 +115,7 @@
                 }
                 this.$store.commit('setData',store_data);
                 
-                this.$router.push('/index');
+                this.$router.replace('/index');
               }else{
                 this.$toast(res.data.msg)
               }

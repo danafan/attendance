@@ -9,7 +9,7 @@
 				<div class="ground_title">{{item.ground_title}}</div>
 				<div class="list_item" v-for="i in item.children">
 					<div class="lable">{{i.lable}}</div>
-					<div>{{i.value}}</div>
+					<div class="value">{{i.value}}</div>
 				</div>
 			</div>
 		</div>
@@ -77,31 +77,34 @@
       				resource.editUserAttendInfo(arg).then(res => {
       					if(res.code == 1){
       						this.$toast(res.msg);
-      						this.$store.commit('setStatus',2);
-      						this.show_sign = false;
-      					}else{
-      						this.$toast(res.msg)
-      					}
-      				})
+      						let store_data = {
+                    status:2
+                  }
+                  this.$store.commit('setData',store_data);
+                  this.show_sign = false;
+                }else{
+                  this.$toast(res.msg)
+                }
+              })
       			}
       		},
       		//去联系
-			openChat(){
-				dd.ready(() => {
-					dd.biz.chat.openSingleChat({
+         openChat(){
+          dd.ready(() => {
+           dd.biz.chat.openSingleChat({
     					corpId: 'ding7828fff434921f5b', // 企业id,必须是用户所属的企业的corpid
     					userId:this.linkman_id, // 用户的uerid
     					onSuccess : () => {
     					},
     					onFail : function() {}
     				})
-				})
-			},
-      	},
-      	components:{
-      		Sign
-      	}
+         })
+        },
+      },
+      components:{
+        Sign
       }
+    }
   </script>
   <style lang="less" scoped>
   .index_container{
@@ -140,54 +143,57 @@
   			}
   			.list_item{
   				border-bottom: 1px solid #F4F4F4;
-  				height: 42px;
   				display: flex;
-  				align-items: center;
   				justify-content: space-between;
-  				padding-left: 10px;
-  				padding-right: 10px;
+  				padding: 10px;
   				font-size:18px;
   				color: #333333;
   				.lable{
-  					font-weight: bold;
-  				}
-  			}
-  		}
-  	}
-  	.bottom_content{
-  		border-top: 1px solid #F4F4F4;
-  		height: 80px;
-  		display: flex;
-  		align-items: center;
-  		justify-content: space-around;
-  		.button_item{
-  			border:1px solid #cccccc;
-  			border-radius: 5px;
-  			width: 130px;
-  			height: 45px;
-  			display: flex;
-  			align-items: center;
-  			justify-content: center;
-  			font-size:16px;
-  			color: #333333;
-  			.sign_icon{
-  				margin-right: 5px;
-  				width: 16px;
-  				height: 16px;
-  			}
-  		}
-  		.sign{
-  			border:none;
-  			background: #1F70F4;
-  			color: #ffffff;
-  		}
-  		.red_color{
-  			color: red;
-  			font-size:18px;
-  			font-weight: bold;
-  		}
-  	}
-  }
+            width: 140px;
+            font-weight: bold;
+          }
+          .value{
+            flex:1;
+            display: flex;
+            justify-content: flex-end;
+          }
+        }
+      }
+    }
+    .bottom_content{
+      border-top: 1px solid #F4F4F4;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      .button_item{
+       border:1px solid #cccccc;
+       border-radius: 5px;
+       width: 130px;
+       height: 45px;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       font-size:16px;
+       color: #333333;
+       .sign_icon{
+        margin-right: 5px;
+        width: 16px;
+        height: 16px;
+      }
+    }
+    .sign{
+     border:none;
+     background: #1F70F4;
+     color: #ffffff;
+   }
+   .red_color{
+     color: red;
+     font-size:18px;
+     font-weight: bold;
+   }
+ }
+}
 </style>
 
 
