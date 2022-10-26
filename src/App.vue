@@ -108,14 +108,13 @@
                 let store_data = {
                   ground_list:info_list,
                   remark:res.data.remark,
-                  id:res.data.id,
                   status:res.data.status,
                   title:res.data.title,
                   linkman_id:res.data.linkman_id
                 }
                 this.$store.commit('setData',store_data);
                 
-                this.$router.replace('/index');
+                this.$router.replace('/index?id=' + res.data.id);
               }else{
                 this.$toast(res.data.msg)
               }

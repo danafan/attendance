@@ -12,17 +12,21 @@
 					<div class="value">{{i.value}}</div>
 				</div>
 			</div>
-		</div>
-		<div class="bottom_content">
-			<div class="button_item" @click="openChat">对考勤有疑问?</div>
-			<div class="button_item sign" @click="show_sign = true" v-if="status == 1">
-				<img class="sign_icon" src="../static/sign_icon.png">
-				<div>签名确认</div>
-			</div>
-			<div class="red_color" v-else>已确认</div>
-		</div>
-		<Sign @callback="signCallBack" v-if="show_sign"/>
-	</div>
+      <div class="img_time" v-if="status != 1">
+        <img class="sign_img" :src="sign_img" v-if="sign_img != ''">
+        <div class="aff_time">{{status == 4?'自动确认时间：':''}}{{aff_time}}</div>
+      </div>
+    </div>
+    <div class="bottom_content">
+     <div class="button_item" @click="openChat">对考勤有疑问?</div>
+     <div class="button_item sign" @click="show_sign = true" v-if="status == 1">
+      <img class="sign_icon" src="../static/sign_icon.png">
+      <div>签名确认</div>
+    </div>
+    <div class="red_color" v-else>{{status == 2?'已确认':'已自动确认'}}</div>
+  </div>
+  <Sign @callback="signCallBack" v-if="show_sign"/>
+</div>
 </template>
 <script>
 	import * as dd from 'dingtalk-jsapi';
@@ -32,30 +36,31 @@
 	export default{
 		data(){
 			return{
+        id:"",
 				show_sign:false,
-			}
-		},
-		computed:{
-			ground_list(){
-				return this.$store.state.ground_list;
-			},
-			remark(){
-				return this.$store.state.remark;
-			},
-			id(){
-				return this.$store.state.id;
-			},
-			status(){
-				return this.$store.state.status;
-			},
-			title(){
-				return this.$store.state.title;
-			},
-			linkman_id(){
-				return this.$store.state.linkman_id;
-			}
-		},
-		created(){
+        sign_img:"",
+        aff_time:""
+      }
+    },
+    computed:{
+     ground_list(){
+      return this.$store.state.ground_list;
+    },
+    remark(){
+      return this.$store.state.remark;
+    },
+    status(){
+      return this.$store.state.status;
+    },
+    title(){
+      return this.$store.state.title;
+    },
+    linkman_id(){
+      return this.$store.state.linkman_id;
+    }
+  },
+  created(){
+      this.id = this.$route.query.id;
 			//设置页面标题
 			dd.biz.navigation.setTitle({
 				title : this.title,
@@ -63,8 +68,10 @@
 				},
 				onFail : function(err) {}
 			});
-		},
-		methods:{
+      //获取签名状态
+      this.getAffInfo(); 
+    },
+    methods:{
       		//签名弹窗回调
       		signCallBack(e){
       			if(e.type == 'cancel'){	//取消
@@ -77,17 +84,34 @@
       				resource.editUserAttendInfo(arg).then(res => {
       					if(res.code == 1){
       						this.$toast(res.msg);
-      						let store_data = {
-                    status:2
-                  }
-                  this.$store.commit('setData',store_data);
                   this.show_sign = false;
+                  //获取签名状态
+                  this.getAffInfo();
                 }else{
                   this.$toast(res.msg)
                 }
               })
       			}
       		},
+          //获取签名状态
+          getAffInfo(){
+            let arg = {
+              id:this.id
+            }
+            resource.getAffInfo(arg).then(res => {
+              if(res.code == 1){
+                let data = res.data;
+                this.sign_img = data.img;
+                this.aff_time = data.aff_time;
+                let store_data = {
+                  status:data.status
+                }
+                this.$store.commit('setData',store_data);
+              }else{
+                this.$toast(res.msg)
+              }
+            })
+          },
       		//去联系
          openChat(){
           dd.ready(() => {
@@ -157,6 +181,19 @@
             display: flex;
             justify-content: flex-end;
           }
+        }
+      }
+      .img_time{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        .sign_img{
+          zoom:0.16;
+        }
+        .aff_time{
+          font-size:18px;
+          color: #333333;
         }
       }
     }

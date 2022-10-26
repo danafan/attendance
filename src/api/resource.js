@@ -4,6 +4,7 @@ let path = {
 	dingAuth:'clothes/ding/auth',							//钉钉鉴权
 	getUserInfo:'attend/query/userattendinfo',				//获取用户信息
 	editUserAttendInfo:'attend/query/edituserattendinfo',	//用户确认
+	getAffInfo:'attend/query/getaffinfo',					//获取签字状态
 }								
 export default{
 	//获取钉钉鉴权信息
@@ -21,6 +22,10 @@ export default{
 	//用户确认
 	editUserAttendInfo(params){
 		return http.post(path.editUserAttendInfo, params)
+	},
+	//获取签字状态
+	getAffInfo(params){
+		return http.post(path.getAffInfo, params)
 	},
 }
 

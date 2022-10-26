@@ -6,7 +6,6 @@ const store = new Vuex.Store({
   state: {  
     ground_list:[],     //内容列表
     remark:"",          //顶部提示
-    id:"",              //当前ID
     status:"",          //状态
     title:"",           //页面标题
     linkman_id:"",      //联系人ID
@@ -14,7 +13,7 @@ const store = new Vuex.Store({
   },
   mutations: {
     //设置数据
-    setData(state, data) {  
+    setData(state, data) { 
       for(let k in data){
         state[k] = data[k];
       }
