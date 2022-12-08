@@ -9,6 +9,7 @@ const store = new Vuex.Store({
     status:"",          //状态
     title:"",           //页面标题
     linkman_id:"",      //联系人ID
+    linkman:"",         //姓名
     href:""
   },
   mutations: {

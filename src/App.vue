@@ -9,11 +9,9 @@
   import resource from './api/resource.js'
   export default {
     created(){
-      //获取用户信息
-      // this.getUserInfo('code');
+      // this.$router.push('/index')
       // return;
-
-
+      
       //判断是否是手机端
       if(this.isMobile()){  //手机端
         // 获取钉钉鉴权信息
@@ -75,8 +73,8 @@
       },
       //获取用户信息
       getUserInfo(code){
-        let attend_id = window.location.search.split('=')[1]; 
-        // let attend_id = '2022101416207505'; 
+        // let attend_id = window.location.search.split('=')[1]; 
+        let attend_id = '2022101416207505'; 
         let arg = {
           code:code,
           attend_id:attend_id
@@ -110,7 +108,8 @@
                   remark:res.data.remark,
                   status:res.data.status,
                   title:res.data.title,
-                  linkman_id:res.data.linkman_id
+                  linkman_id:res.data.linkman_id,
+                  linkman:res.data.linkman,
                 }
                 this.$store.commit('setData',store_data);
                 

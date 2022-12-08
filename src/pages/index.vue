@@ -18,7 +18,7 @@
       </div>
     </div>
     <div class="bottom_content">
-     <div class="button_item" @click="openChat">对考勤有疑问?</div>
+     <div class="button_item" @click="openChat">有疑问联系{{linkman}}</div>
      <div class="button_item sign" @click="show_sign = true" v-if="status == 1">
       <img class="sign_icon" src="../static/sign_icon.png">
       <div>签名确认</div>
@@ -57,6 +57,9 @@
     },
     linkman_id(){
       return this.$store.state.linkman_id;
+    },
+    linkman(){
+      return this.$store.state.linkman;
     }
   },
   created(){
@@ -163,7 +166,7 @@
   				line-height: 40px;
   				padding-left: 10px;
   				font-size:18px;
-  				color: #97999C;
+  				color: #333333;
   			}
   			.list_item{
   				border-bottom: 1px solid #F4F4F4;
@@ -171,7 +174,7 @@
   				justify-content: space-between;
   				padding: 10px;
   				font-size:18px;
-  				color: #333333;
+  				color: #97999C;
   				.lable{
             width: 140px;
             font-weight: bold;
@@ -206,7 +209,9 @@
       .button_item{
        border:1px solid #cccccc;
        border-radius: 5px;
-       width: 130px;
+       // width: 130px;
+       padding-left: 5px;
+       padding-right: 5px;
        height: 45px;
        display: flex;
        align-items: center;
