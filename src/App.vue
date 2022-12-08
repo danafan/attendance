@@ -73,8 +73,8 @@
       },
       //获取用户信息
       getUserInfo(code){
-        // let attend_id = window.location.search.split('=')[1]; 
-        let attend_id = '2022101416207505'; 
+        let attend_id = window.location.search.split('=')[1]; 
+        // let attend_id = '2022101416207505'; 
         let arg = {
           code:code,
           attend_id:attend_id
